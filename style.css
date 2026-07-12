@@ -47,6 +47,11 @@ button {
   display: grid;
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   min-height: 100dvh;
+
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
 }
 
 /* Barra lateral */
@@ -430,8 +435,8 @@ button {
 
 .fullscreen-button {
   top: auto;
-  right: 16px;
-  bottom: 16px;
+  right: calc(16px + env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
   border-radius: 9px;
 }
 
@@ -441,8 +446,8 @@ button {
 }
 
 .exit-fullscreen {
-  top: 16px;
-  right: 16px;
+  top: calc(16px + env(safe-area-inset-top));
+  right: calc(16px + env(safe-area-inset-right));
   display: none;
   border-radius: 50%;
   font-size: 24px;
