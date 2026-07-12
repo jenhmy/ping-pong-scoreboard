@@ -333,12 +333,6 @@ button {
   transform: scale(0.92);
 }
 
-.button {
-  transition:
-    background 140ms ease,
-    border-color 140ms ease,
-    color 140ms ease;
-}
 
 /* Pantalla completa */
 
@@ -409,17 +403,6 @@ body.fullscreen-mode .exit-fullscreen {
 .match-message strong {
   font-family: "Orbitron", sans-serif;
   font-size: clamp(28px, 5vw, 64px);
-}
-
-.match-message button {
-  justify-self: center;
-  padding: 13px 22px;
-  cursor: pointer;
-  border: 0;
-  border-radius: 7px;
-  background: var(--green);
-  color: #10130a;
-  font-weight: 700;
 }
 
 /* Tablet y móvil vertical */
