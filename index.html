@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <meta name="theme-color" content="#080b16">
+
+  <title>Ping Pong Scoreboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+    >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <aside class="sidebar">
+
+      <header class="sidebar-header">
+        <h1>Ping Pong</h1>
+        <span>Scoreboard</span>
+      </header>
+
+      <section class="settings">
+
+        <label class="setting">
+          <span>Puntos para ganar</span>
+
+          <select id="pointsPreset">
+            <option value="7">7 puntos</option>
+            <option value="11" selected>11 puntos</option>
+            <option value="15">15 puntos</option>
+            <option value="21">21 puntos</option>
+          </select>
+        </label>
+
+        <label class="setting">
+          <span>Cambio de saque</span>
+
+          <select id="servePreset">
+            <option value="1">Cada punto</option>
+            <option value="2" selected>Cada 2 puntos</option>
+            <option value="5">Cada 5 puntos</option>
+          </select>
+        </label>
+
+        <label class="setting">
+          <span>Saque en Match Point</span>
+
+          <select id="matchPointServe">
+            <option value="normal" selected>
+              Mantener saque normal
+            </option>
+
+            <option value="alternate">
+              Cambiar saque cada punto
+            </option>
+
+            <option value="losing">
+              Saca quien va perdiendo
+            </option>
+          </select>
+        </label>
+
+      </section>
+
+      <section class="sidebar-actions">
+
+        <button
+          class="button button-start"
+          id="startMatchButton"
+          type="button"
+        >
+          INICIAR
+        </button>
+
+        <button
+          class="button"
+          id="undoButton"
+          type="button"
+        >
+          DESHACER
+        </button>
+
+        <button
+          class="button button-reset"
+          id="resetButton"
+          type="button"
+        >
+          REINICIAR
+        </button>
+
+      </section>
+
+    </aside>
+
+    <section class="scoreboard">
+
+      <button
+        class="fullscreen-button"
+        id="fullscreenButton"
+        type="button"
+        aria-label="Activar pantalla completa"
+        title="Pantalla completa"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M8 3H3v5h2V5h3V3zm8 0v2h3v3h2V3h-5zM5 16H3v5h5v-2H5v-3zm16 0h-2v3h-3v2h5v-5z"
+          />
+        </svg>
+      </button>
+
+      <button
+        class="exit-fullscreen"
+        id="exitFullscreenButton"
+        type="button"
+        aria-label="Salir de pantalla completa"
+        title="Salir de pantalla completa"
+      >
+        ×
+      </button>
+
+      <article
+        class="player player-one"
+        id="playerOneZone"
+      >
+
+        <header class="player-header">
+
+          <div
+            class="serve-indicator"
+            id="serveOne"
+          >
+            <span class="serve-light"></span>
+            SAQUE
+          </div>
+
+          <input
+            class="player-name"
+            id="playerOneName"
+            type="text"
+            value="JUGADOR 1"
+            maxlength="18"
+            autocomplete="off"
+            aria-label="Nombre del jugador 1"
+          >
+
+        </header>
+
+        <div class="score" id="scoreOne">0</div>
+
+        <div class="score-actions">
+          <button
+            class="score-button"
+            id="subtractOne"
+            type="button"
+            aria-label="Restar punto al jugador 1"
+          >
+            −
+          </button>
+
+          <button
+            class="score-button"
+            id="addOne"
+            type="button"
+            aria-label="Sumar punto al jugador 1"
+          >
+            +
+          </button>
+        </div>
+
+      </article>
+
+      <article
+        class="player player-two"
+        id="playerTwoZone"
+      >
+
+        <header class="player-header">
+
+          <div
+            class="serve-indicator"
+            id="serveTwo"
+          >
+            <span class="serve-light"></span>
+            SAQUE
+          </div>
+
+          <input
+            class="player-name"
+            id="playerTwoName"
+            type="text"
+            value="JUGADOR 2"
+            maxlength="18"
+            autocomplete="off"
+            aria-label="Nombre del jugador 2"
+          >
+
+        </header>
+
+        <div class="score" id="scoreTwo">0</div>
+
+        <div class="score-actions">
+          <button
+            class="score-button"
+            id="subtractTwo"
+            type="button"
+            aria-label="Restar punto al jugador 2"
+          >
+            −
+          </button>
+
+          <button
+            class="score-button score-button-add"
+            id="addTwo"
+            type="button"
+            aria-label="Sumar punto al jugador 2"
+          >
+            +
+          </button>
+        </div>
+
+      </article>
+
+      <div
+        class="match-message"
+        id="matchMessage"
+        aria-live="polite"
+      >
+        <strong id="matchMessageText"></strong>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
