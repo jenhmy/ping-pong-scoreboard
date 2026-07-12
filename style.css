@@ -12,7 +12,7 @@
   --green: #b8ff3c;
   --red: #ff5a67;
 
-  --sidebar-width: 280px;
+  --sidebar-width: 300px;
 }
 
 * {
@@ -246,10 +246,6 @@ button {
   transition: filter 120ms ease;
 }
 
-.player:active {
-  filter: brightness(1.1);
-}
-
 .player-one {
   border-right: 1px solid var(--border);
   background:
@@ -372,6 +368,7 @@ button {
 .setting-inline span {
   font-size: clamp(11px, 1vw, 14px);
   line-height: 1.25;
+  white-space: nowrap;
 }
 
 @keyframes score-pop {
@@ -432,9 +429,9 @@ button {
 }
 
 .fullscreen-button {
-  top: 16px;
+  top: auto;
   right: 16px;
-  bottom: auto;
+  bottom: 16px;
   border-radius: 9px;
 }
 
@@ -498,60 +495,93 @@ body.fullscreen-mode .exit-fullscreen {
   }
 
   .sidebar {
+    width: 100%;
     min-height: auto;
-    padding: 20px;
+    padding: 18px 20px;
     border-right: 0;
     border-bottom: 1px solid var(--border);
   }
 
   .sidebar-header {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
 
   .settings {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     gap: 14px;
   }
 
+  .setting-inline {
+    width: 100%;
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .setting-inline select {
+    width: 62px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .setting-inline span {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .rescue-setting {
+    width: 100%;
+  }
+
   .sidebar-actions {
-    margin-top: 20px;
+    margin-top: 18px;
     padding-top: 0;
   }
 
   .scoreboard {
-    grid-template-columns: 1fr;
-    min-height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: 55dvh;
   }
 
   .player {
-    min-height: 48dvh;
-    padding: 18px 12px;
+    grid-template-rows: auto auto auto;
+    align-content: center;
+    gap: 26px;
+    min-height: 55dvh;
+    padding: 18px 8px;
   }
 
   .player-one {
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+  }
+
+  .player-name {
+    padding-inline: 4px;
+    font-size: clamp(13px, 4vw, 18px);
   }
 
   .score {
-    font-size: clamp(75px, 28vw, 140px);
+    font-size: clamp(65px, 21vw, 110px);
   }
 
-  .setting-inline {
-    grid-template-columns: 54px minmax(0, 1fr);
-    gap: 10px;
-    width: 54px;
+  .score-actions {
+    align-self: center;
+  }
+
+  .score-button {
+    width: 40px;
     height: 40px;
+    font-size: 24px;
   }
-
 }
 
 /* Móvil horizontal */
 
 @media (max-height: 600px) and (orientation: landscape) {
   .app {
-    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-columns: 270px minmax(0, 1fr);
   }
 
   .sidebar {
