@@ -5,8 +5,9 @@ const defaultState = {
   names: ["JUGADOR 1", "JUGADOR 2"],
   pointsToWin: 11,
   serveEvery: 2,
-  matchPointServe: "normal",
+  rescueMode: false,
   startingServer: 0,
+  waitingForFirstServer: true,
   finished: false
 };
 
@@ -45,7 +46,7 @@ const serveIndicators = [
 
 const pointsPreset = document.querySelector("#pointsPreset");
 const servePreset = document.querySelector("#servePreset");
-const matchPointServe = document.querySelector("#matchPointServe");
+const rescueMode = document.querySelector("#rescueMode");
 
 const startButton = document.querySelector("#startMatchButton");
 const undoButton = document.querySelector("#undoButton");
@@ -125,21 +126,59 @@ function isMatchPoint() {
   return canWinNextPoint(0) || canWinNextPoint(1);
 }
 
-function getNormalServer() {
-  const total = state.scores[0] + state.scores[1];
-  const changes = Math.floor(total / state.serveEvery);
+function isFinalTiePhase() {
+  const finalTieScore = state.pointsToWin - 1;
 
-  return changes % 2 === 0
-    ? state.startingServer
-    : 1 - state.startingServer;
+  return (
+    state.scores[0] >= finalTieScore &&
+    state.scores[1] >= finalTieScore
+  );
+}
+
+function getOfficialServer() {
+  const totalPoints = state.scores[0] + state.scores[1];
+
+  if (!isFinalTiePhase()) {
+    const changes = Math.floor(totalPoints / state.serveEvery);
+
+    return changes % 2 === 0
+      ? state.startingServer
+      : 1 - state.startingServer;
+  }
+
+  const finalTieScore = state.pointsToWin - 1;
+  const pointsBeforeFinalTie = finalTieScore * 2;
+
+  const changesBeforeFinalTie =
+    Math.floor(pointsBeforeFinalTie / state.serveEvery);
+
+  const serverAtFinalTie =
+    changesBeforeFinalTie % 2 === 0
+      ? state.startingServer
+      : 1 - state.startingServer;
+
+  const pointsSinceFinalTie =
+    totalPoints - pointsBeforeFinalTie;
+
+  return pointsSinceFinalTie % 2 === 0
+    ? serverAtFinalTie
+    : 1 - serverAtFinalTie;
+}
+
+function isRescuePhase() {
+  const rescueScore = state.pointsToWin - 1;
+
+  return (
+    state.scores[0] >= rescueScore ||
+    state.scores[1] >= rescueScore
+  );
 }
 
 function getCurrentServer() {
-  if (!isMatchPoint()) {
-    return getNormalServer();
-  }
-
-  if (state.matchPointServe === "losing") {
+  if (
+    state.rescueMode &&
+    isRescuePhase()
+  ) {
     if (state.scores[0] < state.scores[1]) {
       return 0;
     }
@@ -149,21 +188,13 @@ function getCurrentServer() {
     }
   }
 
-  if (state.matchPointServe === "alternate") {
-    const total = state.scores[0] + state.scores[1];
-
-    return total % 2 === 0
-      ? state.startingServer
-      : 1 - state.startingServer;
-  }
-
-  return getNormalServer();
+  return getOfficialServer();
 }
 
 function applySettings() {
   state.pointsToWin = Number(pointsPreset.value);
   state.serveEvery = Number(servePreset.value);
-  state.matchPointServe = matchPointServe.value;
+  state.rescueMode = rescueMode.checked;
 }
 
 function startMatch() {
@@ -172,6 +203,7 @@ function startMatch() {
 
   state.scores = [0, 0];
   state.startingServer = 0;
+  state.waitingForFirstServer = true;
   state.finished = false;
 
   hideMessage();
@@ -183,6 +215,7 @@ function resetMatch() {
 
   state.scores = [0, 0];
   state.startingServer = 0;
+  state.waitingForFirstServer = true;
   state.finished = false;
 
   hideMessage();
@@ -242,13 +275,19 @@ function render() {
 
   pointsPreset.value = state.pointsToWin;
   servePreset.value = state.serveEvery;
-  matchPointServe.value = state.matchPointServe;
+  rescueMode.checked = state.rescueMode;
 
-  const server = getCurrentServer();
+  if (state.waitingForFirstServer) {
+    serveIndicators.forEach(indicator => {
+      indicator.classList.remove("active");
+    });
+  } else {
+    const server = getCurrentServer();
 
-  serveIndicators.forEach((indicator, index) => {
-    indicator.classList.toggle("active", index === server);
-  });
+    serveIndicators.forEach((indicator, index) => {
+      indicator.classList.toggle("active", index === server);
+    });
+  }
 }
 
 /* Puntuación */
@@ -256,6 +295,13 @@ function render() {
 players.forEach((player, index) => {
   player.addEventListener("click", event => {
     if (event.target.closest("button, input, select")) {
+      return;
+    }
+
+    if (state.waitingForFirstServer) {
+      state.startingServer = index;
+      state.waitingForFirstServer = false;
+      render();
       return;
     }
 
@@ -273,6 +319,14 @@ subtractButtons.forEach((button, index) => {
 addButtons.forEach((button, index) => {
   button.addEventListener("click", event => {
     event.stopPropagation();
+
+    if (state.waitingForFirstServer) {
+      state.startingServer = index;
+      state.waitingForFirstServer = false;
+      render();
+      return;
+    }
+
     addPoint(index);
   });
 });
@@ -311,7 +365,7 @@ servePreset.addEventListener("change", () => {
   render();
 });
 
-matchPointServe.addEventListener("change", () => {
+rescueMode.addEventListener("change", () => {
   applySettings();
   render();
 });

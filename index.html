@@ -34,43 +34,38 @@
 
       <section class="settings">
 
-        <label class="setting">
+        <label class="setting setting-inline">
+          <select id="pointsPreset" aria-label="Puntos para ganar">
+            <option value="7">7</option>
+            <option value="11" selected>11</option>
+            <option value="15">15</option>
+            <option value="21">21</option>
+          </select>
+
           <span>Puntos para ganar</span>
-
-          <select id="pointsPreset">
-            <option value="7">7 puntos</option>
-            <option value="11" selected>11 puntos</option>
-            <option value="15">15 puntos</option>
-            <option value="21">21 puntos</option>
-          </select>
         </label>
 
-        <label class="setting">
-          <span>Cambio de saque</span>
-
-          <select id="servePreset">
-            <option value="1">Cada punto</option>
-            <option value="2" selected>Cada 2 puntos</option>
-            <option value="5">Cada 5 puntos</option>
+        <label class="setting setting-inline">
+          <select id="servePreset" aria-label="Puntos por saque">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="5">5</option>
           </select>
+
+          <span>Puntos por saque</span>
         </label>
 
-        <label class="setting">
-          <span>Saque en Match Point</span>
+        <label class="rescue-setting">
+          <span class="rescue-text">
+            <strong>Modo loser</strong>
+          </span>
 
-          <select id="matchPointServe">
-            <option value="normal" selected>
-              Mantener saque normal
-            </option>
+          <input
+            id="rescueMode"
+            type="checkbox"
+          >
 
-            <option value="alternate">
-              Cambiar saque cada punto
-            </option>
-
-            <option value="losing">
-              Saca quien va perdiendo
-            </option>
-          </select>
+          <span class="rescue-switch" aria-hidden="true"></span>
         </label>
 
       </section>
