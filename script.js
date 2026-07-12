@@ -12,7 +12,6 @@ const defaultState = {
 };
 
 let state = createState();
-let history = [];
 
 const scores = [
   document.querySelector("#scoreOne"),
@@ -49,7 +48,6 @@ const servePreset = document.querySelector("#servePreset");
 const rescueMode = document.querySelector("#rescueMode");
 
 const startButton = document.querySelector("#startMatchButton");
-const undoButton = document.querySelector("#undoButton");
 
 const fullscreenButton = document.querySelector("#fullscreenButton");
 const exitFullscreenButton = document.querySelector("#exitFullscreenButton");
@@ -65,20 +63,11 @@ function createState() {
   };
 }
 
-function saveSnapshot() {
-  history.push(structuredClone(state));
-
-  if (history.length > 100) {
-    history.shift();
-  }
-}
-
 function addPoint(player) {
   if (state.finished) {
     return;
   }
 
-  saveSnapshot();
   state.scores[player]++;
 
   animateScore(player);
@@ -97,7 +86,6 @@ function subtractPoint(player) {
     return;
   }
 
-  saveSnapshot();
   state.scores[player]--;
   render();
 }
@@ -197,26 +185,12 @@ function applySettings() {
 }
 
 function startMatch() {
-  saveSnapshot();
   applySettings();
 
   state.scores = [0, 0];
   state.startingServer = 0;
   state.waitingForFirstServer = true;
   state.finished = false;
-
-  hideMessage();
-  render();
-}
-
-function undo() {
-  const previousState = history.pop();
-
-  if (!previousState) {
-    return;
-  }
-
-  state = previousState;
 
   hideMessage();
   render();
@@ -360,7 +334,6 @@ rescueMode.addEventListener("change", () => {
 /* Botones */
 
 startButton.addEventListener("click", startMatch);
-undoButton.addEventListener("click", undo);
 
 /* Pantalla completa */
 
