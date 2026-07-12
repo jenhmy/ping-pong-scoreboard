@@ -50,7 +50,6 @@ const rescueMode = document.querySelector("#rescueMode");
 
 const startButton = document.querySelector("#startMatchButton");
 const undoButton = document.querySelector("#undoButton");
-const resetButton = document.querySelector("#resetButton");
 
 const fullscreenButton = document.querySelector("#fullscreenButton");
 const exitFullscreenButton = document.querySelector("#exitFullscreenButton");
@@ -200,18 +199,6 @@ function applySettings() {
 function startMatch() {
   saveSnapshot();
   applySettings();
-
-  state.scores = [0, 0];
-  state.startingServer = 0;
-  state.waitingForFirstServer = true;
-  state.finished = false;
-
-  hideMessage();
-  render();
-}
-
-function resetMatch() {
-  saveSnapshot();
 
   state.scores = [0, 0];
   state.startingServer = 0;
@@ -373,7 +360,6 @@ rescueMode.addEventListener("change", () => {
 /* Botones */
 
 startButton.addEventListener("click", startMatch);
-resetButton.addEventListener("click", resetMatch);
 undoButton.addEventListener("click", undo);
 
 /* Pantalla completa */

@@ -224,11 +224,6 @@ button {
   color: #10130a;
 }
 
-.button-reset {
-  border-color: var(--red);
-  color: #ff7a85;
-}
-
 /* Marcador */
 
 .scoreboard {
@@ -367,6 +362,11 @@ button {
   font-size: clamp(13px, 1vw, 15px);
   text-align: center;
   text-align-last: center;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
 }
 
 .setting-inline span {
