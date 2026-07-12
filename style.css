@@ -43,6 +43,18 @@ button {
   color: inherit;
 }
 
+button,
+.player,
+.score-button,
+.fullscreen-button,
+.exit-fullscreen {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.player {
+  -webkit-touch-callout: none;
+}
+
 .app {
   display: grid;
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
@@ -579,6 +591,12 @@ body.fullscreen-mode .exit-fullscreen {
     width: 40px;
     height: 40px;
     font-size: 24px;
+  }
+
+  .exit-fullscreen {
+    position: fixed;
+    top: calc(16px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
   }
 }
 
