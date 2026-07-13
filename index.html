@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&display=swap"
     rel="stylesheet"
   >
 
@@ -25,12 +25,12 @@
 
   <main class="app">
 
-    <aside class="sidebar">
+    <aside class="sidebar">     
 
       <header class="sidebar-header">
         <h1>Ping Pong</h1>
         <span>Scoreboard</span>
-      </header>
+      </header>      
 
       <section class="settings">
 
@@ -68,7 +68,7 @@
             class="segmented-control"
             id="servePreset"
             role="group"
-            aria-label="Puntos por saque"
+            aria-label="Cambio de saque"
           >
             <button
               class="segment-button active"
@@ -89,7 +89,7 @@
             </button>
           </div>
 
-          <span>Puntos por saque</span>
+          <span>Cambio de saque</span>
         </div>
 
         <label class="rescue-setting">
@@ -119,8 +119,7 @@
 
     </aside>
 
-    <section class="scoreboard">
-
+    <section class="scoreboard">  
       <button
         class="fullscreen-button"
         id="fullscreenButton"
@@ -133,7 +132,7 @@
             d="M8 3H3v5h2V5h3V3zm8 0v2h3v3h2V3h-5zM5 16H3v5h5v-2H5v-3zm16 0h-2v3h-3v2h5v-5z"
           />
         </svg>
-      </button>
+      </button>  
 
       <button
         class="exit-fullscreen"
@@ -145,8 +144,18 @@
         ×
       </button>
 
+      <button
+        class="swap-sides-button"
+        id="swapSidesButton"
+        type="button"
+        aria-label="Cambiar jugadores de lado"
+        title="Cambiar lados"
+      >
+        ⇄
+      </button>
+
       <article
-        class="player player-one"
+        class="player player-one side-cyan"
         id="playerOneZone"
       >
 
@@ -197,7 +206,7 @@
       </article>
 
       <article
-        class="player player-two"
+        class="player player-two side-pink"
         id="playerTwoZone"
       >
 

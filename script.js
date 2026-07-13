@@ -48,6 +48,7 @@ const servePreset = document.querySelector("#servePreset");
 const rescueMode = document.querySelector("#rescueMode");
 
 const startButton = document.querySelector("#startMatchButton");
+const swapSidesButton = document.querySelector("#swapSidesButton");
 
 const fullscreenButton = document.querySelector("#fullscreenButton");
 const exitFullscreenButton = document.querySelector("#exitFullscreenButton");
@@ -261,6 +262,21 @@ function render() {
   }
 }
 
+function swapSides() {
+  state.scores.reverse();
+  state.names.reverse();
+
+  state.startingServer = 1 - state.startingServer;
+
+  players[0].classList.toggle("side-cyan");
+  players[0].classList.toggle("side-pink");
+
+  players[1].classList.toggle("side-cyan");
+  players[1].classList.toggle("side-pink");
+
+  render();
+}
+
 /* Puntuación */
 
 players.forEach((player, index) => {
@@ -344,6 +360,7 @@ rescueMode.addEventListener("change", () => {
 /* Botones */
 
 startButton.addEventListener("click", startMatch);
+swapSidesButton.addEventListener("click", swapSides);
 
 /* Pantalla completa */
 
