@@ -449,7 +449,6 @@ button,
   cursor: pointer;
   border: 1px solid var(--border);
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.35);
   color: var(--text);
 
   font-size: 27px;
@@ -457,6 +456,13 @@ button,
   line-height: 1;
 
   transition: 150ms ease;
+}
+
+.score-button,
+.swap-sides-button,
+.fullscreen-button,
+.exit-fullscreen {
+  background: rgba(5, 7, 14, 0.65);
 }
 
 .score-button:hover {
@@ -486,7 +492,6 @@ button,
   transform: translate(-50%, -50%);
   border: 1px solid var(--border);
   border-radius: 50%;
-  background: var(--background);
   color: var(--text);
   font-size: 22px;
   line-height: 1;
@@ -521,7 +526,6 @@ button,
   padding: 0;
   cursor: pointer;
   border: 1px solid var(--border);
-  background: rgba(5, 7, 14, 0.65);
   color: var(--text);
 }
 
@@ -592,7 +596,7 @@ body.fullscreen-mode .exit-fullscreen {
    NARROW SCREENS
    ========================================================= */
 
-@media (max-width: 820px) {
+@media (max-width: 770px) {
   body {
     overflow-x: hidden;
     overflow-y: auto;
@@ -708,5 +712,37 @@ body.fullscreen-mode .exit-fullscreen {
 @media (orientation: landscape) {
   .fullscreen-button {
     bottom: calc(41px + env(safe-area-inset-bottom));
+  }
+}
+
+/* =========================================================
+   SHORT LANDSCAPE SCREENS
+   ========================================================= */
+
+@media (max-height: 430px) and (min-width: 721px) {
+  .sidebar {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .sidebar-header {
+    margin-bottom: 16px;
+  }
+
+  .settings {
+    gap: 14px;
+  }
+
+  .sidebar-actions {
+    padding-top: 16px;
+  }
+
+  .player {
+    padding-top: 24px;
+    padding-bottom: 16px;
+  }
+
+  .fullscreen-button {
+    bottom: calc(17px + env(safe-area-inset-bottom));
   }
 }
