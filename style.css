@@ -451,7 +451,9 @@ button,
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.35);
   color: var(--text);
+
   font-size: 27px;
+  font-weight: 300;
   line-height: 1;
 
   transition: 150ms ease;
