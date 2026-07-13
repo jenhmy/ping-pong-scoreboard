@@ -63,6 +63,30 @@ function createState() {
   };
 }
 
+function getSelectedValue(group) {
+  const activeButton = group.querySelector(".segment-button.active");
+
+  return Number(activeButton.dataset.value);
+}
+
+function selectSegment(group, selectedButton) {
+  group.querySelectorAll(".segment-button").forEach(button => {
+    const isSelected = button === selectedButton;
+
+    button.classList.toggle("active", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
+}
+
+function renderSegment(group, value) {
+  group.querySelectorAll(".segment-button").forEach(button => {
+    const isSelected = Number(button.dataset.value) === value;
+
+    button.classList.toggle("active", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
+}
+
 function addPoint(player) {
   if (state.finished) {
     return;
@@ -97,20 +121,6 @@ function hasWon(player) {
     state.scores[player] >= state.pointsToWin &&
     state.scores[player] - state.scores[opponent] >= 2
   );
-}
-
-function canWinNextPoint(player) {
-  const opponent = player === 0 ? 1 : 0;
-  const nextScore = state.scores[player] + 1;
-
-  return (
-    nextScore >= state.pointsToWin &&
-    nextScore - state.scores[opponent] >= 2
-  );
-}
-
-function isMatchPoint() {
-  return canWinNextPoint(0) || canWinNextPoint(1);
 }
 
 function isFinalTiePhase() {
@@ -179,8 +189,8 @@ function getCurrentServer() {
 }
 
 function applySettings() {
-  state.pointsToWin = Number(pointsPreset.value);
-  state.serveEvery = Number(servePreset.value);
+  state.pointsToWin = getSelectedValue(pointsPreset);
+  state.serveEvery = getSelectedValue(servePreset);
   state.rescueMode = rescueMode.checked;
 }
 
@@ -198,15 +208,15 @@ function startMatch() {
 
 function updateName(player) {
   state.names[player] =
-    names[player].value.trim() ||
+    names[player].value.trim().toUpperCase() ||
     `JUGADOR ${player + 1}`;
 
   names[player].value = state.names[player];
 }
 
 function showWinner(player) {
-  matchMessageText.textContent =
-    `${state.names[player]} GANA EL PARTIDO`;
+  matchMessageText.innerHTML =
+    `¡VICTORIA PARA<br>${state.names[player]}!`;
 
   matchMessage.classList.add("visible");
 }
@@ -234,8 +244,8 @@ function render() {
     input.value = state.names[index];
   });
 
-  pointsPreset.value = state.pointsToWin;
-  servePreset.value = state.serveEvery;
+  renderSegment(pointsPreset, state.pointsToWin);
+  renderSegment(servePreset, state.serveEvery);
   rescueMode.checked = state.rescueMode;
 
   if (state.waitingForFirstServer) {
@@ -255,7 +265,7 @@ function render() {
 
 players.forEach((player, index) => {
   player.addEventListener("click", event => {
-    if (event.target.closest("button, input, select")) {
+    if (event.target.closest("button, input")) {
       return;
     }
 
@@ -314,16 +324,16 @@ names.forEach((input, index) => {
   });
 });
 
-/* Configuración */
+/* Configuración segmentada */
 
-pointsPreset.addEventListener("change", () => {
-  applySettings();
-  render();
-});
-
-servePreset.addEventListener("change", () => {
-  applySettings();
-  render();
+[pointsPreset, servePreset].forEach(group => {
+  group.querySelectorAll(".segment-button").forEach(button => {
+    button.addEventListener("click", () => {
+      selectSegment(group, button);
+      applySettings();
+      render();
+    });
+  });
 });
 
 rescueMode.addEventListener("change", () => {

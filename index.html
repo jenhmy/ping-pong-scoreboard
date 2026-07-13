@@ -16,7 +16,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
-    >
+  >
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -34,31 +34,66 @@
 
       <section class="settings">
 
-        <label class="setting setting-inline">
-          <select id="pointsPreset" aria-label="Puntos para ganar">
-            <option value="7">7</option>
-            <option value="11" selected>11</option>
-            <option value="15">15</option>
-            <option value="21">21</option>
-          </select>
+        <div class="setting setting-inline">
+          <div
+            class="segmented-control"
+            id="pointsPreset"
+            role="group"
+            aria-label="Puntos para ganar"
+          >
+            <button
+              class="segment-button active"
+              type="button"
+              data-value="11"
+              aria-pressed="true"
+            >
+              11
+            </button>
+
+            <button
+              class="segment-button"
+              type="button"
+              data-value="21"
+              aria-pressed="false"
+            >
+              21
+            </button>
+          </div>
 
           <span>Puntos para ganar</span>
-        </label>
+        </div>
 
-        <label class="setting setting-inline">
-          <select id="servePreset" aria-label="Puntos por saque">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="5">5</option>
-          </select>
+        <div class="setting setting-inline">
+          <div
+            class="segmented-control"
+            id="servePreset"
+            role="group"
+            aria-label="Puntos por saque"
+          >
+            <button
+              class="segment-button active"
+              type="button"
+              data-value="2"
+              aria-pressed="true"
+            >
+              2
+            </button>
+
+            <button
+              class="segment-button"
+              type="button"
+              data-value="5"
+              aria-pressed="false"
+            >
+              5
+            </button>
+          </div>
 
           <span>Puntos por saque</span>
-        </label>
+        </div>
 
         <label class="rescue-setting">
-          <span class="rescue-text">
-            <strong>Loser Mode</strong>
-          </span>
+          <strong>Saque de rescate</strong>
 
           <input
             id="rescueMode"
@@ -78,7 +113,8 @@
           type="button"
         >
           COMENZAR
-        </button>        
+        </button>
+
       </section>
 
     </aside>
