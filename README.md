@@ -8,7 +8,7 @@ Permite configurar los puntos necesarios para ganar, el cambio de saque y un mod
 
 Prepárate para **configurar**, **anotar** y **controlar** cada partido de forma sencilla.
 
-✨ **Ping Pong Scoreboard** está desarrollado con **HTML, CSS y JavaScript**, con un diseño responsive pensado para funcionar correctamente tanto en ordenadores como en tablets y teléfonos móviles.
+**Ping Pong Scoreboard** está desarrollado con **HTML, CSS y JavaScript**, con un diseño responsive pensado para funcionar correctamente tanto en ordenadores como en tablets y teléfonos móviles.
 
 ![Plataforma](https://img.shields.io/badge/Plataforma-Web-FF4081?style=for-the-badge&logoColor=white&labelColor=F50057)
 ![Lenguajes](https://img.shields.io/badge/Lenguajes-HTML_CSS_JavaScript-1565C0?style=for-the-badge&logoColor=white&labelColor=0D47A1)
